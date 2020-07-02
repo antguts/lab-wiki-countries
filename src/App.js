@@ -1,26 +1,40 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from 'react';
+import countries from './countries.json';
+import Country from './components/CountriesList.js'
+import Navbar from './Navbar.js'
+import { Link } from 'react-router-dom';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+
+class App extends Component {
+
+  displayCountries=()=>{
+    return countries.map((eachCountry)=>{
+      return(
+        <Link class="list-group-item list-group-item-action" to={`${eachCountry.cca2}`}>
+          <img src={"https://www.countryflags.io/"+eachCountry.cca2+"/flat/64.png"}/> 
+          {eachCountry.name.common}</Link>
+        );
+    });
+  }
+
+
+  render() {
+    return (
+      <div>
+        <Navbar />
+        <Country />
+        <div className="container">
+          <div className="row">
+            <div className="col-5" >
+              <div className="list-group">
+                {this.displayCountries()}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
 }
 
 export default App;
